@@ -1,0 +1,10 @@
+const imageUrl =
+  image && image._ref ? urlFor(image).url() : "/fallback.jpg"; // Correct fallback path
+
+<Image
+  src={imageUrl}
+  width={200}
+  height={200}
+  alt={`Product image ${idx + 1}`}
+  className="h-full w-full object-cover object-center cursor-pointer"
+/>

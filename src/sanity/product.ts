@@ -20,42 +20,42 @@ const productSchema = {
       title: "Slug",
       type: "slug",
       options: {
-        source: "name", // Use 'name' field as the source for the slug
-        maxLength: 96,  // Set max length for the slug
-        slugify: (input) => {
-          // Custom slugify function to handle spaces, special characters, etc.
-          return input
+        source: "name",
+        maxLength: 96,
+        slugify: (input) =>
+          input
             .toLowerCase()
-            .replace(/\s+/g, "-")          // Replace spaces with hyphens
-            .replace(/[^\w-]+/g, "")       // Remove special characters
-            .slice(0, 96);                 // Limit the length to 96 characters
-        },
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "")
+            .slice(0, 96),
       },
-      validation: (Rule) => Rule.required(), // Ensure the slug is always generated
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "description",
       title: "Description",
       type: "text",
-      validation: (Rule) => Rule.optional(),
     },
     {
       name: "price",
       title: "Price",
-      type: "string",
+      type: "number",
       validation: (Rule) => Rule.required().min(0),
     },
     {
-         name: "price_id",
-          title: "stripe Price ID",
-          type: "string",
+      name: "price_id",
+      title: "Stripe Price ID",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     },
+    
     {
-      name: "image",
-      title: "Image",
-      type: "image",
+      name: "images",
+      title: "Images",
+      type: "array", // Define the images field as an array of images
+      of: [{ type: "image" }],
       options: {
-        hotspot: true, // Enable hotspot for image cropping
+        hotspot: true, // Enable image cropping in the Sanity Studio
       },
     },
   ],

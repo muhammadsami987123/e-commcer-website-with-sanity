@@ -1,18 +1,28 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import image from "next/image";
 import { useShoppingCart } from "use-shopping-cart";
 
-import { ProductCart } from "@/app/AddToBag/page";
+// import { ProductCart } from "@/app/AddToBag/page";
 
-export default function CheckoutNow({
-  currency,
-  description,
-  image,
-  name,
-  price,
-  price_id,
-}: ProductCart) {
+export interface ProductCart {
+  id: string;
+  name: string;
+  price: number;
+  image: string; // The image resolves to a URL string.
+  currency: string;
+  description: string;
+  price_id: string;
+}
+
+interface AddToBagProps extends Omit<ProductCart, "image"> {
+  images: SanityImageSource[]; // Images specific to this component, fetched from Sanity.
+}
+
+export default function AddToBag(props: AddToBagProps) {
+  const { id, name, price, images, currency, description, price_id } = props; {
   const { checkoutSingleItem } = useShoppingCart();
 
   function buyNow(priceId: string) {
@@ -37,4 +47,5 @@ export default function CheckoutNow({
       Checkout Now
     </Button>
   );
+}
 }

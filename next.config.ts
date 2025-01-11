@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true, // Enables React's Strict Mode
   images: {
-    domains: ["cdn.sanity.io"], // Allow images from Sanity's CDN
+    domains: ["cdn.sanity.io"], // Add Sanity's image CDN domain
   },
 };
 

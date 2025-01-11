@@ -9,7 +9,7 @@ export interface ProductCart {
   id: string;
   name: string;
   price: number;
-  image: string; // URL string for the image.
+  image: any; // URL string for the image.
   currency: string;
   description: string;
   price_id: string;

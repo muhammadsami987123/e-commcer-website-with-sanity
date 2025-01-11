@@ -10,7 +10,7 @@ export interface ProductCart {
   id: string;
   name: string;
   price: number;
-  image: string; // The image resolves to a URL string.
+  image: string; // Resolved image URL for the cart
   currency: string;
   description: string;
   price_id: string;
@@ -22,41 +22,34 @@ interface AddToBagProps extends Omit<ProductCart, "image"> {
 
 export default function AddToBag(props: AddToBagProps) {
   const { id, name, price, images, currency, description, price_id } = props;
-
   const { addItem, handleCartClick } = useShoppingCart();
 
-  const imageUrl = images?.[0] ? urlFor(images[0]) : "/fallback.jpg";
+  // Resolve the main product image URL or fallback
+  const imageUrl = images?.[0]?._ref ? urlFor(images[0]).url() : "/fallback.jpg";
 
+  // Construct product object for the shopping cart
   const product: ProductCart = {
     id,
     name,
-    price,
-    image: imageUrl, // Always has a fallback image
-    currency,
     description,
+    price,
+    currency,
+    image: imageUrl, // Pass the resolved image URL
     price_id,
   };
 
   const handleAddToCart = () => {
-    addItem(product);
-    handleCartClick();
+    addItem(product); // Add the product to the cart
+    handleCartClick(); // Optionally open the cart modal
   };
 
   return (
     <Button
       onClick={handleAddToCart}
-      className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded"
+      className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded flex items-center"
     >
-      <div className="flex items-center">
-        <Image
-          src={imageUrl}
-          alt={name}
-          width={50}
-          height={50}
-          className="rounded-md mr-2"
-        />
-        Add To Cart
-      </div>
+
+      Add To Cart
     </Button>
   );
 }
